@@ -1,0 +1,16 @@
+th, td {
+    padding: 15px;
+    text-align: left;
+  }
+
+  tr:hover {background-color: #7ce1f3;}
+
+  th {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  h4 {
+    background-color: teal;
+    color: white;
+  }

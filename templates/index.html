@@ -22,13 +22,41 @@
     <!-- NASA Mars News -->
     <div class="container">
         <div class = "row">
-            <div class='box border bg-light border-dark rounded m-2 p-0'>
-                <div class = 'h3 bg-dark text-white p-2'>
-                    <i class='fas fa-rss-square'></i>Latest Mars News:
+            <div class="col-md-12">
+                <div class="box border bg-light border-dark rounded m-2 p-0">
+                    <div class = 'h3 bg-dark text-white p-2'>
+                        Latest Mars News:
+                    </div>
+                    <div class='h3 text-info pl-2'>{{ mars.news_title }}</div>
+                    <div class='p ml-2 pr-2 pb-2'>{{ mars.news_paragraph }}</div>
                 </div>
-                <div class='h3 text-info pl-2'>{{ mars.news_title }}</div>
-                <div class='p ml-2 pb-2'>{{ mars.news_paragraph }}</div>
+            </div>    
+        </div>
+        <div class = "row">
+            <div class="col-md-8">
+                <div class="card text-white bg-dark mb-3" style="width: 18rem;">
+                    <div class="card-header">
+                        <h3>Featured MARS Image:</h3>
+                    </div>
+                    <div class="card-body">
+                        <img src="{{ mars.featured_image }}" alt="Featured MARS image from JPL website">
+                    <!-- <div class="card-body"> -->
+                    <!-- <h5 class="card-title">Featured MARS Image</h5> -->
+                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                    </div>
+                </div> 
             </div>
+            <div class="col-md-4">
+                <div class="box bg-light m-2 p-1">
+                    <div class="h4 bg-dark text-white p-2">
+                      Mars Facts
+                    </div>
+                    <table class="table-dark table-bordered table-sm">
+                    <thead class="text-dark text-center"> <tr> 
+                      {{ mars.table|safe }}
+                </div>
+            </div>  
         </div>
     </div>
     

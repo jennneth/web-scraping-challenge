@@ -58,8 +58,13 @@ def jpl_images(browser):
     #the URL of the page to be scraped
     url2="https://www.jpl.nasa.gov/images/"
     base_1="https://www.jpl.nasa.gov"
-    browser.visit(url2)
-    print("browser.visit(url2)")
+    try:
+        browser.visit(url2)
+        print("browser.visit(url2)")
+    except:
+        url2 = "https://webcache.googleusercontent.com/search?q=cache:gFCwbhsgFQsJ:https://www.jpl.nasa.gov/images/+&cd=1&hl=en&ct=clnk&gl=us"
+        browser.visit(url2)
+        print("browser.visit(url2)")
     #create beautifulSoup object, parse with html parser
     html2 = browser.html
     soup2 = bs(html2,'html.parser')
@@ -155,22 +160,48 @@ def mars_hemispheres(browser):
 #################################################    
 def scrape_all():
     #this function runs all of the data gathering/scraping
+    mars_data = {}
     
     #call the initialize browser function, do this once
     browser = init_browser()
-    news_title, news_p = mars_news(browser)
-    #featured_image_url = jpl_images(browser)
-    #JPL webpages are not currently working Feb 3, 2021
-    html_table = mars_facts(browser)
-    hemisphere_image_urls = mars_hemispheres(browser)
+    try:
+        news_title, news_p = mars_news(browser)
+        mars_data["news_title"] = news_title
+        mars_data["news_paragraph"] = news_p
+    except:
+        pass
+
+    try:
+        featured_image_url = jpl_images(browser)
+        mars_data["featured_image"] = featured_image_url
+    except:
+        pass
+
+    try:
+        html_table = mars_facts(browser)
+        mars_data["table"]= html_table
+    except:
+        pass
+
+    try:
+       hemisphere_image_urls = mars_hemispheres(browser)
+       mars_data["hemispheres"] = hemisphere_image_urls
+    except:
+        pass
+    
+    # news_title, news_p = mars_news(browser)
+    # #featured_image_url = jpl_images(browser)
+    # #JPL webpages are not currently working Feb 3, 2021
+    #    html_table = mars_facts(browser)
+    # hemisphere_image_urls = mars_hemispheres(browser)
   
-    mars_data = {
-        "news_title": news_title,
-        "news_paragraph": news_p,
-        "featured_image": featured_image_url,
-        "table":html_table,
-        "hemispheres":hemisphere_image_urls
-    }
+    # mars_data = {
+    #     "news_title": news_title,
+    #     "news_paragraph": news_p,
+    # #    "featured_image": featured_image_url,
+    #     "table":html_table,
+    #     "hemispheres":hemisphere_image_urls
+    # }
     browser.quit()
     return mars_data
 
