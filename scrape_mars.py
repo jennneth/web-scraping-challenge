@@ -86,7 +86,7 @@ def jpl_images(browser):
 #################################################
 # MARS Facts
 #################################################  
-def mars_facts():
+def mars_facts(browser):
     #the URL of the page to be scraped
     url="https://space-facts.com/mars/"
     browser.visit(url)
@@ -108,7 +108,7 @@ def mars_facts():
 #################################################
 # MARS Hemispheres
 #################################################  
-def mars_hemispheres():
+def mars_hemispheres(browser):
     #the webpage to be scraped
     url="https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
     browser.visit(url)
