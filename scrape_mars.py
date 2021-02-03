@@ -84,9 +84,10 @@ def jpl_images(browser):
     soup3=bs(img_html,'html.parser')
     large_image=soup3.find_all('div', class_="BaseImagePlaceholder")
     large=large_image[0]
-    #print(large)
+    print(large)
     featured_image_url=large.find('img')['src']
-    print("Featured image url: " &(featured_image_url))
+    print("Featured image url: ")
+    print(featured_image_url)
 
     return featured_image_url
 
