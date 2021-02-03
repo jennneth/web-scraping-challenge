@@ -6,11 +6,10 @@ th, td {
   tr:hover {background-color: #7ce1f3;}
 
   th {
-    background-color: #4CAF50;
-    color: white;
+    background-color:white;
+    color: teal;
   }
 
   h4 {
-    background-color: teal;
-    color: white;
+    color:teal;
   }

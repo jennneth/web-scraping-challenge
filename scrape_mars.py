@@ -56,7 +56,8 @@ def mars_news(browser):
 ################################################    
 def jpl_images(browser):
     #the URL of the page to be scraped
-    url2="https://www.jpl.nasa.gov/images/"
+    #url2="https://www.jpl.nasa.gov/images/"
+    url2="https://webcache.googleusercontent.com/search?q=cache:gFCwbhsgFQsJ:https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars"
     base_1="https://www.jpl.nasa.gov"
     try:
         browser.visit(url2)
@@ -64,7 +65,7 @@ def jpl_images(browser):
     except:
         url2 = "https://webcache.googleusercontent.com/search?q=cache:gFCwbhsgFQsJ:https://www.jpl.nasa.gov/images/+&cd=1&hl=en&ct=clnk&gl=us"
         browser.visit(url2)
-        print("browser.visit(url2)")
+        print("browser.visit(JPL - alternative browser)")
     #create beautifulSoup object, parse with html parser
     html2 = browser.html
     soup2 = bs(html2,'html.parser')
@@ -73,7 +74,7 @@ def jpl_images(browser):
     # results are returned as an iterable list
     results2= soup2.find_all('div', class_="SearchResultCard")
     first_results = results2[0]
-    print(results2)
+    #print(results2)
     extend_url = first_results.find('a')["href"]
     print(extend_url)
     img_url=base_1+extend_url
@@ -83,9 +84,10 @@ def jpl_images(browser):
     soup3=bs(img_html,'html.parser')
     large_image=soup3.find_all('div', class_="BaseImagePlaceholder")
     large=large_image[0]
-    print(large)
+    #print(large)
     featured_image_url=large.find('img')['src']
-    print(featured_image_url)
+    print("Featured image url: " &(featured_image_url))
+
     return featured_image_url
 
 #################################################
@@ -173,7 +175,7 @@ def scrape_all():
 
     try:
         featured_image_url = jpl_images(browser)
-        mars_data["featured_image"] = featured_image_url
+        mars_data["featured"] = featured_image_url
     except:
         pass
 

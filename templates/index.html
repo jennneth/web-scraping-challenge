@@ -8,7 +8,7 @@
     <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <div class="container">
@@ -34,22 +34,16 @@
         </div>
         <div class = "row">
             <div class="col-md-8">
-                <div class="card text-white bg-dark mb-3" style="width: 18rem;">
-                    <div class="card-header">
-                        <h3>Featured MARS Image:</h3>
+                <div class="box border bg-light border-dark rounded m-2 p-2">
+                    <div class="h3 bg-dark text-light p-2">
+                        Featured Mars Image
                     </div>
-                    <div class="card-body">
-                        <img src="{{ mars.featured_image }}" alt="Featured MARS image from JPL website">
-                    <!-- <div class="card-body"> -->
-                    <!-- <h5 class="card-title">Featured MARS Image</h5> -->
-                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                    </div>
+                    <img class="img-fluid rounded-lg" src="{{ mars.featured }}" alt="Featured MARS image from JPL website">
                 </div> 
             </div>
             <div class="col-md-4">
                 <div class="box bg-light m-2 p-1">
-                    <div class="h4 bg-dark text-white p-2">
+                    <div class="h3 bg-dark text-white p-2">
                       Mars Facts
                     </div>
                     <table class="table-dark table-bordered table-sm">
@@ -58,6 +52,29 @@
                 </div>
             </div>  
         </div>
+        <div class="row">
+            <div class="box border rounded bg-light m-2 p-4">
+              <div class="col-md-12">
+                <div class="text-center h3">
+                    Mars Hemispheres
+                </div>
+              </div>      
+              <div class="row">
+                {% for i in mars.hemispheres %}
+                <div class="col-md-6 pb-3 p-1">   
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{i['img_url']}}" class="card-img-top" width=100%>
+                        <div class="card-body">
+                            <p class="card-text">
+                                {{i['title']}}
+                            </p>
+                        </div>
+                    </div>                         
+                </div>
+                {% endfor %}
+              </div> 
+            </div>
+          </div>
     </div>
     
     
