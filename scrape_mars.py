@@ -51,6 +51,8 @@ def mars_news(browser):
 
 ################################################
 # Get the JPL Mars Space Images
+#
+#Special NOTE: this code was working fine until the webpage stopped loading
 ################################################    
 def jpl_images(browser):
     #the URL of the page to be scraped
@@ -104,6 +106,51 @@ def mars_facts():
     return html_table
 
 #################################################
+# MARS Hemispheres
+#################################################  
+def mars_hemispheres():
+    #the webpage to be scraped
+    url="https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
+    browser.visit(url)
+    #make the soup
+    html = browser.html
+    soup = bs(html,'html.parser')
+    main_links = soup.find_all('div', class_='description')
+    #print(main_links)
+    
+    #set the base url:
+    base_url = 'https://astrogeology.usgs.gov'
+
+    #create an empty list to store the dictionaries
+    hemisphere_image_urls = []
+
+    #create an empty dictionary to hold the hemisphere info
+    hemi_dict = {}
+
+    #loop through and execute this for each hemisphere
+
+    for link in main_links:
+        
+        #build the URL for the hemisphere
+        hemi_url =  base_url + link.find('a')['href']
+        #print(hemi_url)
+        #make the soup for the next page
+        browser.visit(hemi_url)
+    
+        html=browser.html
+        soup = bs(html,'html.parser')
+        #grab the data
+        title = soup.find('h2', class_='title').text
+        img_url = soup.find('img', class_='wide-image')['src']
+        #store data in dictionary
+        hemi_dict["title"]=title
+        hemi_dict["img_url"]=base_url + img_url
+        #add this to the list
+        hemisphere_image_urls.append(hemi_dict.copy())
+    return hemisphere_image_urls
+
+
+#################################################
 # Run all the scraping functions
 #################################################    
 def scrape_all():
@@ -112,14 +159,17 @@ def scrape_all():
     #call the initialize browser function, do this once
     browser = init_browser()
     news_title, news_p = mars_news(browser)
-    featured_image_url = jpl_images(browser)
+    #featured_image_url = jpl_images(browser)
+    #JPL webpages are not currently working Feb 3, 2021
     html_table = mars_facts(browser)
+    hemisphere_image_urls = mars_hemispheres(browser)
   
     mars_data = {
         "news_title": news_title,
         "news_paragraph": news_p,
         "featured_image": featured_image_url,
-        "table":html_table
+        "table":html_table,
+        "hemispheres":hemisphere_image_urls
     }
     browser.quit()
     return mars_data
